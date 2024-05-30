@@ -32,10 +32,13 @@ svg path.hexbin-hexagon {
 }
 
 .noUi-value {
-	font-size: 14px;
-	-webkit-text-fill-color: rgb(153, 153, 153);/* Will override color (regardless of order) */
-	-webkit-text-stroke-width: .5px;
-	-webkit-text-stroke-color: rgb(49, 49, 49);
+    color: #000000; /* Ensure contrast */
+    font-size: 14px; /* Increase size */
+}
+
+.noUi-marker {
+    background: #000000; /* Ensure contrast */
+    height: 15px; /* Increase size */
 }
 
 @media (max-width: 850px) {

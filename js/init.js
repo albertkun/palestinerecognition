@@ -10,9 +10,24 @@ class TimeSliderControl {
         this.container.style.justifyContent = 'center';
         this.container.style.alignItems = 'center';
 
-        this.slider = document.createElement('div');
-        this.slider.id = 'map-slider';
-        this.slider.style.width = '500px';
+		this.slider = document.createElement('div');
+		this.slider.id = 'map-slider';
+		
+		// Adjust the width of the slider based on the screen size
+		if (window.innerWidth <= 850) {
+			this.slider.style.width = '300px';
+		} else {
+			this.slider.style.width = '500px';
+		}
+		
+		// Add an event listener to adjust the width of the slider when the window is resized
+		window.addEventListener('resize', () => {
+			if (window.innerWidth <= 850) {
+				this.slider.style.width = '300px';
+			} else {
+				this.slider.style.width = '500px';
+			}
+		});
 		this.slider.style.margin = '10px';
 
         this.container.appendChild(this.slider);
@@ -183,36 +198,7 @@ class ChartControl {
 		title.style.textAlign = 'center';
 		this.container.appendChild(title);
 
-		// Calculate the total number of responses
-		let total = data.yes + data.no;
-
-		// Create the 'yes' part of the bar
-		let yesBar = document.createElement('div');
-		yesBar.style.height = '100%';
-		yesBar.style.width = `${data.yes / total * 100}%`;
-		yesBar.style.backgroundColor = '#008000';
-		yesBar.textContent = `Yes: ${data.yes}`; // Add the number of 'yes' countries
-		yesBar.style.fontFamily = "'Roboto', sans-serif"; // Use the Roboto Google Font
-		yesBar.style.textAlign = 'center';
-
-		// Create the 'no' part of the bar
-		let noBar = document.createElement('div');
-		noBar.style.height = '100%';
-		noBar.style.width = `${data.no / total * 100}%`;
-		noBar.style.backgroundColor = '#DD2222';
-		noBar.textContent = `No: ${data.no}`; // Add the number of 'no' countries
-		noBar.style.fontFamily = "'Roboto', sans-serif"; // Use the Roboto Google Font
-		noBar.style.textAlign = 'center';
-
-		// Create a container for the bar chart
-		let chartContainer = document.createElement('div');
-		chartContainer.style.display = 'flex';
-		chartContainer.style.width = '200px';
-		chartContainer.style.height = '20px';
-		chartContainer.appendChild(yesBar);
-		chartContainer.appendChild(noBar);
-
-		// Add the bar chart to the map
+		let chartContainer = createBarChart(data);
 		this.container.appendChild(chartContainer);
 
 		// Add a source
@@ -221,10 +207,60 @@ class ChartControl {
 		source.style.textAlign = 'center';
 		source.innerHTML = 'Source: <a href="https://en.wikipedia.org/wiki/International_recognition_of_the_State_of_Palestine" target="_blank">Wikipedia</a>';
 		this.container.appendChild(source);
+
+		// Create a link to your GitHub repository
+		let githubLink = document.createElement('a');
+		githubLink.href = 'https://github.com/albertkun/palestinerecognition';
+		githubLink.target = '_blank';
+
+		// Create a FontAwesome GitHub icon and add it to the link
+		let githubIcon = document.createElement('i');
+		githubIcon.className = 'fab fa-github';
+		githubLink.appendChild(githubIcon);
+
+		// Add the link to the container
+		this.container.appendChild(githubLink);
 	}
 }
 let mapData;
+function createBarChart(data) {
+    // Calculate the total number of responses
+    let total = data.yes + data.no;
 
+    // Create the 'yes' part of the bar
+    let yesBar = document.createElement('div');
+    yesBar.style.height = '100%';
+    yesBar.style.width = `${data.yes / total * 100}%`;
+    yesBar.style.backgroundColor = '#008000';
+    yesBar.style.color = '#ffffff'; // Ensure contrast
+    yesBar.textContent = `Yes: ${data.yes}`; // Add the number of 'yes' countries
+    yesBar.style.fontFamily = "'Roboto', sans-serif"; // Use the Roboto Google Font
+    yesBar.style.textAlign = 'center';
+    yesBar.setAttribute('role', 'img'); // Non-text content
+    yesBar.setAttribute('aria-label', `Yes: ${data.yes}`); // Non-text content
+
+    // Create the 'no' part of the bar
+    let noBar = document.createElement('div');
+    noBar.style.height = '100%';
+    noBar.style.width = `${data.no / total * 100}%`;
+    noBar.style.backgroundColor = '#DD2222';
+    noBar.style.color = '#ffffff'; // Ensure contrast
+    noBar.textContent = `No: ${data.no}`; // Add the number of 'no' countries
+    noBar.style.fontFamily = "'Roboto', sans-serif"; // Use the Roboto Google Font
+    noBar.style.textAlign = 'center';
+    noBar.setAttribute('role', 'img'); // Non-text content
+    noBar.setAttribute('aria-label', `No: ${data.no}`); // Non-text content
+
+    // Create a container for the bar chart
+    let chartContainer = document.createElement('div');
+    chartContainer.style.display = 'flex';
+    chartContainer.style.width = '200px';
+    chartContainer.style.height = '20px';
+    chartContainer.appendChild(yesBar);
+    chartContainer.appendChild(noBar);
+
+    return chartContainer;
+}
 document.addEventListener('DOMContentLoaded', (event) => {
     // Fetch the GeoJSON data
     fetch('data/countries.geojson')
@@ -233,6 +269,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
             mapData = data;
         });
 });
+
+
 
 let map = new maplibregl.Map({
     container: 'map',
