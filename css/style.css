@@ -1,0 +1,39 @@
+html, body {
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	display: grid;
+	grid-template-rows: 1fr;
+	grid-template-columns: 1fr;
+	grid-template-areas: "main";
+}
+
+.wrapper {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr;
+	grid-area: main;
+	height: 100vh;
+	width: 100vw;
+}
+
+#map {
+	grid-column: 1;
+	grid-row: 1;
+}
+
+svg path.hexbin-hexagon {
+	stroke: #000;
+	stroke-width: 0px;
+}
+
+.noUi-value {
+	font-size: 14px;
+	-webkit-text-fill-color: rgb(153, 153, 153);/* Will override color (regardless of order) */
+	-webkit-text-stroke-width: .5px;
+	-webkit-text-stroke-color: rgb(49, 49, 49);
+}
