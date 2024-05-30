@@ -37,3 +37,16 @@ svg path.hexbin-hexagon {
 	-webkit-text-stroke-width: .5px;
 	-webkit-text-stroke-color: rgb(49, 49, 49);
 }
+
+@media (max-width: 850px) {
+    body {
+        grid-template-rows: 1fr auto;
+        grid-template-areas: 
+            "main"
+            "timeSlider";
+    }
+
+    #timeSlider {
+        grid-area: timeSlider;
+    }
+}

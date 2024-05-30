@@ -335,7 +335,7 @@ map.once('idle', function() {
 
     // Create a new instance of the control and add it to the map
     let chartControl = new ChartControl();
-    map.addControl(chartControl, 'top-right');
+    map.addControl(chartControl, 'bottom-right');
 	let timeSliderControl = new TimeSliderControl(chartControl);
 
     // Add the control to the map
