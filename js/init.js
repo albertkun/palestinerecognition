@@ -227,7 +227,7 @@ let mapData;
 
 document.addEventListener('DOMContentLoaded', (event) => {
     // Fetch the GeoJSON data
-    fetch('/data/countries.geojson')
+    fetch('data/countries.geojson')
         .then(response => response.json())
         .then(data => {
             mapData = data;
