@@ -15,9 +15,9 @@ class TimeSliderControl {
 		
 		// Adjust the width of the slider based on the screen size
 		if (window.innerWidth <= 850) {
-			this.slider.style.width = '300px';
+			this.slider.style.width = '250px';
 		} else {
-			this.slider.style.width = '500px';
+			this.slider.style.width = '450px';
 		}
 		
 		// Add an event listener to adjust the width of the slider when the window is resized
