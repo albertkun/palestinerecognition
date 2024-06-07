@@ -261,15 +261,14 @@ function createBarChart(data) {
 
     return chartContainer;
 }
-document.addEventListener('DOMContentLoaded', (event) => {
-    // Fetch the GeoJSON data
+// Set a delay before fetching the GeoJSON data
+setTimeout(() => {
     fetch('data/countries.geojson')
         .then(response => response.json())
         .then(data => {
             mapData = data;
         });
-});
-
+}, 500); // 2000 milliseconds = 2 seconds
 
 
 let map = new maplibregl.Map({
