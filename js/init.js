@@ -268,7 +268,7 @@ setTimeout(() => {
         .then(data => {
             mapData = data;
         });
-}, 500); // 2000 milliseconds = 2 seconds
+}, 1000); // 2000 milliseconds = 2 seconds
 
 
 let map = new maplibregl.Map({
