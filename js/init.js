@@ -1,7 +1,7 @@
 // set the year to the latest current year in YYYY format
 let currentYear = new Date().getFullYear();
 
-let mapData;
+
 class TimeSliderControl {
     constructor(chartControl) {
         this.container = document.createElement('div');
@@ -125,7 +125,6 @@ class TimeSliderControl {
 function filterDataByTime(date) {
     // Convert date to ISO string
     date = new Date(date).toISOString();
-    console.log(date);
 	currentYear = new Date(date).getFullYear();
 
     // Set the filter on the countries layer
@@ -151,12 +150,10 @@ function filterDataByTime(date) {
 		}
 
 		if (feature.properties.recognition === 'yes' && featureDate) {
-			console.log('Date:', featureDate);  // Log the date of the current feature
 			return new Date(featureDate).toISOString() <= date;
 		}
 		return true;
 	});
-	console.log('Filtered Data:', filteredData);  // Log the filtered data
 	return filteredData;
 }
 
@@ -222,7 +219,7 @@ class ChartControl {
 		this.container.appendChild(githubLink);
 	}
 }
-
+let mapData;
 function createBarChart(data) {
     // Calculate the total number of responses
     let total = data.yes + data.no;
@@ -261,7 +258,14 @@ function createBarChart(data) {
 
     return chartContainer;
 }
-// Set a delay before fetching the GeoJSON data
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Fetch the GeoJSON data
+    fetch('data/countries.geojson')
+        .then(response => response.json())
+        .then(data => {
+            mapData = data;
+        });
+});
 
 
 
@@ -417,9 +421,16 @@ function onTimeSliderChange(start, end) {
 // Function to filter data based on a time range
 
 
+// Assuming 'map' is the id of your map element
+let thismap = document.getElementById('map');
 
-fetch('data/countries.geojson')
-.then(response => response.json())
-.then(data => {
-	mapData = data;
-});
+// Function to apply jiggle effect
+function jiggleMap() {
+  thismap.style.transform = 'translate(10px, 0)';
+  setTimeout(() => {
+    thismap.style.transform = '';
+  }, 500);
+}
+
+// Apply jiggle effect after 0.5 seconds
+setTimeout(jiggleMap, 500);
