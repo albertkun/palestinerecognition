@@ -1,7 +1,7 @@
 // set the year to the latest current year in YYYY format
 let currentYear = new Date().getFullYear();
 
-
+let mapData;
 class TimeSliderControl {
     constructor(chartControl) {
         this.container = document.createElement('div');
@@ -222,7 +222,7 @@ class ChartControl {
 		this.container.appendChild(githubLink);
 	}
 }
-let mapData;
+
 function createBarChart(data) {
     // Calculate the total number of responses
     let total = data.yes + data.no;
@@ -262,13 +262,7 @@ function createBarChart(data) {
     return chartContainer;
 }
 // Set a delay before fetching the GeoJSON data
-setTimeout(() => {
-    fetch('data/countries.geojson')
-        .then(response => response.json())
-        .then(data => {
-            mapData = data;
-        });
-}, 1000); // 2000 milliseconds = 2 seconds
+
 
 
 let map = new maplibregl.Map({
@@ -422,3 +416,10 @@ function onTimeSliderChange(start, end) {
 // Assuming you have a time slider element
 // Function to filter data based on a time range
 
+
+
+fetch('data/countries.geojson')
+.then(response => response.json())
+.then(data => {
+	mapData = data;
+});
