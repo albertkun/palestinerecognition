@@ -424,13 +424,17 @@ function onTimeSliderChange(start, end) {
 // Assuming 'map' is the id of your map element
 let thismap = document.getElementById('map');
 
-// Function to apply jiggle effect
-function jiggleMap() {
-  thismap.style.transform = 'translate(10px, 0)';
-  setTimeout(() => {
-    thismap.style.transform = '';
-  }, 500);
-}
+// Initialize your map here
+// map = ...
 
-// Apply jiggle effect after 0.5 seconds
-setTimeout(jiggleMap, 500);
+// Add a small delay then simulate a small jiggle
+setTimeout(() => {
+    const center = map.getCenter();
+    const jiggleLat = center.lat + 0.0001;
+    const jiggleLng = center.lng + 0.0001;
+
+    map.setCenter([jiggleLng, jiggleLat]);
+
+    // Or, simulate a pan event
+    map.panBy([0.0001, 0.0001]);
+}, 1000);
