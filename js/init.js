@@ -417,15 +417,9 @@ function onTimeSliderChange(start, end) {
 
 }
 
-// Assuming you have a time slider element
-// Function to filter data based on a time range
-
 
 // Assuming 'map' is the id of your map element
 let thismap = document.getElementById('map');
-
-// Initialize your map here
-// map = ...
 
 // Add a small delay then simulate a small jiggle
 setTimeout(() => {
