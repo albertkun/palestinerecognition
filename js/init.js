@@ -46,10 +46,10 @@ class TimeSliderControl {
 		// Calculate the years for every 5 years between the start and end dates
 		const startYear = new Date(default_start_date).getFullYear();
 		const endYear = new Date(default_end_date).getFullYear();
-		const years = [];
-		for (let year = startYear; year <= endYear; year += 5) {
-			years.push(Date.parse(`Jan 1,${year}`));
-		}
+        const years = [];
+        for (let year = startYear; year <= endYear; year += 5) {
+            years.push(Date.parse(`Jan 1,${year}`));
+        }
 
 		// Make sure the start and end dates are included
 		if (!years.includes(Date.parse(default_start_date))) {
