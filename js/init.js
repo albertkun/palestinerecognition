@@ -55,9 +55,10 @@ class TimeSliderControl {
 		if (!years.includes(Date.parse(default_start_date))) {
 			years.unshift(Date.parse(default_start_date));
 		}
-		if (!years.includes(default_end_date)) {
-			years.push(default_end_date);
-		}
+        const lastYearMs = Date.parse(`Jan 1,${endYear}`);
+        if (!years.includes(lastYearMs)) {
+            years.push(lastYearMs);
+        }
 
 		this.timeSlider = noUiSlider.create(this.slider, {
 			behaviour: 'tap-drag',
