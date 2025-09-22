@@ -221,7 +221,8 @@ class ChartControl {
 	}
 }
 let mapData;
-function createBarChart(data) {
+
+function createBarChartOldPre2025(data) {
     // Calculate the total number of responses
     let total = data.yes + data.no;
 
@@ -259,6 +260,74 @@ function createBarChart(data) {
 
     return chartContainer;
 }
+
+
+function createBarChart(data) {
+    // Calculate the total number of responses
+    let total = data.yes + data.no;
+
+    // Create a container for the bar chart
+    let chartContainer = document.createElement('div');
+    chartContainer.style.display = 'flex';
+    chartContainer.style.flexDirection = 'column';
+    chartContainer.style.alignItems = 'center';
+
+    // Create a row for the labels
+    let labelRow = document.createElement('div');
+    labelRow.style.display = 'flex';
+    labelRow.style.justifyContent = 'space-between';
+    labelRow.style.width = '200px';
+    labelRow.style.marginBottom = '2px';
+
+    let yesLabel = document.createElement('span');
+    yesLabel.style.color = '#008000';
+    yesLabel.style.fontWeight = 'bold';
+    yesLabel.style.fontFamily = "'Roboto', sans-serif";
+    yesLabel.textContent = `Yes: ${data.yes}`;
+
+    let noLabel = document.createElement('span');
+    noLabel.style.color = '#DD2222';
+    noLabel.style.fontWeight = 'bold';
+    noLabel.style.fontFamily = "'Roboto', sans-serif";
+    noLabel.textContent = `No: ${data.no}`;
+
+    labelRow.appendChild(yesLabel);
+    labelRow.appendChild(noLabel);
+
+    // Create a row for the bars
+    let barRow = document.createElement('div');
+    barRow.style.display = 'flex';
+    barRow.style.width = '200px';
+    barRow.style.height = '20px';
+    barRow.style.overflow = 'hidden';
+    barRow.style.borderRadius = '5px';
+
+    // 'Yes' part of the bar
+    let yesBar = document.createElement('div');
+    yesBar.style.height = '100%';
+    yesBar.style.width = `${data.yes / total * 100}%`;
+    yesBar.style.backgroundColor = '#008000';
+    yesBar.setAttribute('role', 'img');
+    yesBar.setAttribute('aria-label', `Yes: ${data.yes}`);
+
+    // 'No' part of the bar
+    let noBar = document.createElement('div');
+    noBar.style.height = '100%';
+    noBar.style.width = `${data.no / total * 100}%`;
+    noBar.style.backgroundColor = '#DD2222';
+    noBar.setAttribute('role', 'img');
+    noBar.setAttribute('aria-label', `No: ${data.no}`);
+
+    barRow.appendChild(yesBar);
+    barRow.appendChild(noBar);
+
+    chartContainer.appendChild(labelRow);
+    chartContainer.appendChild(barRow);
+
+    return chartContainer;
+}
+
+
 document.addEventListener('DOMContentLoaded', (event) => {
     // Fetch the GeoJSON data
     fetch('data/countries.geojson')
